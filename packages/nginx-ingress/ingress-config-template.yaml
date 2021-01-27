@@ -1,0 +1,13 @@
+controller:
+  name: example-app-ingress
+  healthStatus: true
+  defaultTLS:
+    cert: $CERT_VALUE
+    key: $KEY_VALUE
+  service:
+    httpPort:
+      port: 31002
+      targetPort: 80
+    httpsPort:
+      port: 31001
+      targetPort: 443
