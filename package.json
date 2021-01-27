@@ -1,0 +1,15 @@
+{
+  "name": "azure-and-dapr-identity-example",
+  "version": "1.0.0",
+  "description": "Example of using Azure services with DAPR controlled by user identity.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "DAPR",
+    "Azure",
+    "Identity"
+  ],
+  "author": "Dave Baskin <dfbaskin@gmail.com>",
+  "license": "MIT"
+}
