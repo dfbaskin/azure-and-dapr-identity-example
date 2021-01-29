@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - testing.local
+      secretName: example-app-ingress-nginx-ingress-default-server-tls
+  rules:
+    - host: testing.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
