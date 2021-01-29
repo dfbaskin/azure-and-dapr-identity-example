@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: frontend-webserver:latest
+          image: frontend-webserver:v1.3
           imagePullPolicy: Never
           ports:
             - containerPort: 80

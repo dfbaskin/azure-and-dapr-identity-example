@@ -1,26 +1,29 @@
 
 $imageName = "frontend-webserver"
+$imageVersion = "v1.3"
+$imageFullName = "$($imageName):$($imageVersion)"
 
-$imgIds = @(docker image ls $imageName -q)
 
+$imgIds = @(docker image ls $imageFullName -q)
 if($imgIds.Length -gt 0) {
-  Write-Output "Deleting previous image:"
   docker image ls $imageName
-  $imgIds |
-    ForEach-Object {
-      $imgId = $_
-      Write-Output "Deleting $imgId"
-      docker image rm $imgId
-      if(-not $?) {
-        exit 1
-      }
-    }
+  Write-Output @"
+
+Image with version $imageVersion already exists.
+
+Change the version in the files:
+
+   - deploy/build-frontend-image.ps1
+   - deploy/frontend-deployment.yaml
+
+"@  
+  exit 1
 }
 
 Write-Output "Building Image ..."
 $buildPath = Join-Path $PSScriptRoot ".."
 Push-Location $buildPath
-docker build -t $imageName .
+docker build -t $imageFullName -t "$($imageName):latest" .
 $success = $?
 Pop-Location
 
