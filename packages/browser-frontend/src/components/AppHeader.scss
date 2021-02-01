@@ -1,9 +1,19 @@
 .app-header {
   padding: 2rem;
-  ul {
+  nav {
     display: flex;
-    > li:nth-of-type(n + 2) {
-      margin-left: 1.5rem;
+    justify-content: space-between;
+
+    ul {
+      display: flex;
+      > li:nth-of-type(n + 2) {
+        margin-left: 1.5rem;
+      }
+    }
+
+    .user {
+      display: inline-block;
+      margin-right: 1rem;
     }
   }
 }

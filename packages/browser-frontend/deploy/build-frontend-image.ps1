@@ -20,13 +20,22 @@ Change the version in the files:
   exit 1
 }
 
-Write-Output "Building Image ..."
 $buildPath = Join-Path $PSScriptRoot ".."
 Push-Location $buildPath
-docker build -t $imageFullName -t "$($imageName):latest" .
-$success = $?
-Pop-Location
 
-if($success) {
-  docker image ls $imageName
+Write-Output "Building React application ..."
+npm run build
+if(-not $?) {
+  Pop-Location
+  exit 1
 }
+
+Write-Output "Building Image ..."
+docker build -t $imageFullName -t "$($imageName):latest" .
+if(-not $?) {
+  Pop-Location
+  exit 1
+}
+
+docker image ls $imageName
+Pop-Location
