@@ -1,8 +1,8 @@
+. $(Join-Path $PSScriptRoot '../../../tools/ps/app-config.ps1')
 
 $imageName = "frontend-webserver"
-$imageVersion = "v1.5"
+$imageVersion = Get-BuildVersion -yamlFile $(Join-Path $PSScriptRoot "frontend-deployment.yaml")
 $imageFullName = "$($imageName):$($imageVersion)"
-
 
 $imgIds = @(docker image ls $imageFullName -q)
 if($imgIds.Length -gt 0) {
@@ -11,9 +11,8 @@ if($imgIds.Length -gt 0) {
 
 Image with version $imageVersion already exists.
 
-Change the version in the files:
+Change the version in the file:
 
-   - deploy/build-frontend-image.ps1
    - deploy/frontend-deployment.yaml
 
 "@  

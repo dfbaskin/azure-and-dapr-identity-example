@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: users-api-container
-          image: users-api:v1.0
+          image: users-api:v1.1
           imagePullPolicy: Never
           ports:
             - containerPort: 80
@@ -46,7 +46,7 @@ spec:
     - host: testing.local
       http:
         paths:
-          - path: /api/config/auth
+          - path: /api
             pathType: Prefix
             backend:
               service:
