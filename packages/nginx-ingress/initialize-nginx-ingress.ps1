@@ -29,3 +29,5 @@ $configFile = Join-Path $buildPath "ingress-config.yaml"
 Set-Content -Path $configFile $content
 
 helm install example-app-ingress nginx-stable/nginx-ingress -n $namespace -f $configFile
+
+kubectl apply -f @(Join-Path $PSScriptRoot "ingress-master.yaml") -n $namespace

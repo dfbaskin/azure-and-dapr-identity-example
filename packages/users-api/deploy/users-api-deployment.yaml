@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: users-api-deployment
 spec:
   selector:
     matchLabels:
-      app: frontend
+      app: users-api
   replicas: 1
   template:
     metadata:
       labels:
-        app: frontend
+        app: users-api
     spec:
       containers:
-        - name: frontend-webserver-container
-          image: frontend-webserver:v1.5
+        - name: users-api-container
+          image: users-api:v1.0
           imagePullPolicy: Never
           ports:
             - containerPort: 80
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: users-api-service
 spec:
   selector:
-    app: frontend
+    app: users-api
   ports:
     - name: http
       protocol: TCP
@@ -37,7 +37,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: users-api-ingress
   annotations:
     nginx.org/mergeable-ingress-type: minion
 spec:
@@ -46,10 +46,10 @@ spec:
     - host: testing.local
       http:
         paths:
-          - path: /
+          - path: /api/config/auth
             pathType: Prefix
             backend:
               service:
-                name: frontend-service
+                name: users-api-service
                 port:
                   number: 80

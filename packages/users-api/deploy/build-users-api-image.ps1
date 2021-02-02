@@ -1,8 +1,7 @@
 
-$imageName = "frontend-webserver"
-$imageVersion = "v1.5"
+$imageName = "users-api"
+$imageVersion = "v1.0"
 $imageFullName = "$($imageName):$($imageVersion)"
-
 
 $imgIds = @(docker image ls $imageFullName -q)
 if($imgIds.Length -gt 0) {
@@ -13,8 +12,8 @@ Image with version $imageVersion already exists.
 
 Change the version in the files:
 
-   - deploy/build-frontend-image.ps1
-   - deploy/frontend-deployment.yaml
+   - deploy/build-users-api-image.ps1
+   - deploy/users-api-deployment.yaml
 
 "@  
   exit 1
@@ -23,8 +22,17 @@ Change the version in the files:
 $buildPath = Join-Path $PSScriptRoot ".."
 Push-Location $buildPath
 
-Write-Output "Building React application ..."
-npm run build
+if(Test-Path ./build/) {
+  Remove-Item ./build/ -Force -Recurse
+}
+
+Write-Output "Building .NET application ..."
+dotnet build --configuration Release
+if(-not $?) {
+  Pop-Location
+  exit 1
+}
+dotnet publish --configuration Release --output ./build --no-build
 if(-not $?) {
   Pop-Location
   exit 1
