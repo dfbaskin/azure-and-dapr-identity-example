@@ -5,6 +5,7 @@ export function isProductionMode() {
 export interface AuthConfig {
   clientId: string;
   authority: string;
+  apiScope: string;
 }
 
 export function fetchAuthConfig(): Promise<AuthConfig> {

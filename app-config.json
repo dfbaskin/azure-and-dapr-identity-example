@@ -4,7 +4,8 @@
   },
   "authentication": {
     "clientId": "f7edc002-e261-42e5-9140-8dde2e83260c",
-    "authority": "https://login.microsoftonline.com/fa1ee923-839f-4da5-a453-6eefaf3c9699/"
+    "authority": "https://login.microsoftonline.com/fa1ee923-839f-4da5-a453-6eefaf3c9699/",
+    "apiScope": "api://f7edc002-e261-42e5-9140-8dde2e83260c/access_as_user"
   },
   "azureAD": {
     "clientId": "f7edc002-e261-42e5-9140-8dde2e83260c",

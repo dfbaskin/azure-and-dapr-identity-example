@@ -4,5 +4,6 @@ namespace ExampleApp.Users.Models
     {
         public string ClientId { get; set; }
         public string Authority { get; set; }
+        public string ApiScope { get; set; }
     }
 }

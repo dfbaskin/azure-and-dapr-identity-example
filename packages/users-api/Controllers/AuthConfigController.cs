@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ExampleApp.Users.Models;
 using ExampleApp.Users.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,9 @@ namespace ExampleApp.Users.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("auth")]
-        public async Task<IActionResult> Get()
+        public async Task<AuthConfig> Get()
         {
-            var authConfig = await AppConfig.GetAuthenticationConfiguration();
-            return new JsonResult(authConfig);
+            return await AppConfig.GetAuthenticationConfiguration();
         }
     }
 }

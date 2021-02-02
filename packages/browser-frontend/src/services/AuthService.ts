@@ -13,10 +13,15 @@ interface ExpectedTokenClaims {
   preferred_username?: string; // Email
 }
 
+let apiScope = "";
+
 let currentAccount: AccountInfo | null = null;
 
 const authClientPromise = fetchAuthConfig()
-  .then((config) => initializeAuthLibrary(config))
+  .then((config) => {
+    apiScope = config.apiScope;
+    return initializeAuthLibrary(config);
+  })
   .then((authClient) => {
     return authClient
       .handleRedirectPromise()
@@ -65,7 +70,10 @@ function initializeAuthLibrary({ clientId, authority }: AuthConfig) {
   return new PublicClientApplication(authConfig);
 }
 
-function getCurrentToken(authClient: PublicClientApplication, login: boolean) {
+function getCurrentToken(
+  authClient: PublicClientApplication,
+  scopes: string[]
+) {
   return Promise.resolve(null).then(() => {
     let account = currentAccount;
     if (!account) {
@@ -78,7 +86,7 @@ function getCurrentToken(authClient: PublicClientApplication, login: boolean) {
       return authClient
         .acquireTokenSilent({
           account,
-          scopes: ["user.read"],
+          scopes,
         })
         .catch((err) => {
           if (err instanceof InteractionRequiredAuthError) {
@@ -88,8 +96,6 @@ function getCurrentToken(authClient: PublicClientApplication, login: boolean) {
           console.error("acquireTokenSilent error", err);
           return null;
         });
-    } else if (login) {
-      userSignin();
     }
     return null;
   });
@@ -149,7 +155,7 @@ function getLastCurrentAccountId() {
 export function userSignin() {
   authClientPromise.then((authClient) => {
     authClient.loginRedirect({
-      scopes: ["user.read"],
+      scopes: [apiScope],
     });
   });
 }
@@ -163,6 +169,12 @@ export function userSignout() {
 
 export function getUserDetails() {
   return authClientPromise
-    .then((authClient) => getCurrentToken(authClient, false))
+    .then((authClient) => getCurrentToken(authClient, [apiScope]))
+    .then((tokenResponse) => processToken(tokenResponse));
+}
+
+export function getGraphBearerToken() {
+  return authClientPromise
+    .then((authClient) => getCurrentToken(authClient, ["user.read"]))
     .then((tokenResponse) => processToken(tokenResponse));
 }

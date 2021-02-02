@@ -18,6 +18,7 @@ namespace ExampleApp.Users.Services
             {
                 ClientId = Config["authentication:clientId"],
                 Authority = Config["authentication:authority"],
+                ApiScope = Config["authentication:apiScope"],
             });
         }
     }

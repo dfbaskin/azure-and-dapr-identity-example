@@ -1,7 +1,7 @@
-import { getUserDetails } from "./AuthService";
+import { getGraphBearerToken } from "./AuthService";
 
 export function fetchMeFromBrowser() {
-  return getUserDetails()
+  return getGraphBearerToken()
     .then((details) => {
       if (!details.isAuthenticated) {
         throw new Error("User is not signed in.");
