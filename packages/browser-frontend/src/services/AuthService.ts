@@ -26,8 +26,9 @@ const authClientPromise = fetchAuthConfig()
 
 function initializeAuthLibrary({ clientId, authority }: AuthConfig) {
   const url = new URL(window.location.href);
-  const redirectUri = `${url.protocol}//${url.hostname}:${url.port}/auth-callback`;
-  const postLogoutRedirectUri = `${url.protocol}//${url.hostname}:${url.port}/logout`;
+  const portNum = !url.port || url.port === "443" ? "" : `:${url.port}`;
+  const redirectUri = `${url.protocol}//${url.hostname}${portNum}/auth-callback`;
+  const postLogoutRedirectUri = `${url.protocol}//${url.hostname}${portNum}/logout`;
   const loggerCallback = (level: LogLevel, message: string) => {
     switch (level) {
       case LogLevel.Error:
@@ -99,6 +100,7 @@ type ProcessTokenReturnType =
       isAuthenticated: true;
       displayId: string;
       name: string;
+      idToken: string;
       bearerToken: string;
     }
   | {
@@ -110,7 +112,7 @@ function processToken(
 ): Promise<ProcessTokenReturnType> {
   return Promise.resolve(tokenResponse).then((tokenResponse) => {
     if (tokenResponse !== null && tokenResponse.account !== null) {
-      const { account, idToken } = tokenResponse;
+      const { account, idToken, accessToken } = tokenResponse;
       const claims = tokenResponse.idTokenClaims as ExpectedTokenClaims;
       currentAccount = account;
       saveCurrentAccountId(account.homeAccountId);
@@ -118,7 +120,8 @@ function processToken(
         isAuthenticated: true,
         displayId: claims.preferred_username || account.username || "n/a",
         name: claims.name || "n/a",
-        bearerToken: idToken,
+        idToken,
+        bearerToken: accessToken,
       };
     } else {
       return {
