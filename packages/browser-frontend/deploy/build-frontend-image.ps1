@@ -1,6 +1,6 @@
 
 $imageName = "frontend-webserver"
-$imageVersion = "v1.3"
+$imageVersion = "v1.4"
 $imageFullName = "$($imageName):$($imageVersion)"
 
 
