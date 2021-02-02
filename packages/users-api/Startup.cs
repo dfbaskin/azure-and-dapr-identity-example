@@ -1,9 +1,11 @@
 using ExampleApp.Users.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 
 namespace ExampleApp.Users
@@ -19,6 +21,10 @@ namespace ExampleApp.Users
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApi(Configuration, "AzureAd");
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -39,11 +45,14 @@ namespace ExampleApp.Users
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints
+                    .MapControllers()
+                    .RequireAuthorization();
             });
         }
     }

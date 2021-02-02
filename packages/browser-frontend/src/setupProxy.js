@@ -1,18 +1,13 @@
 // Set up a proxy for API requests (when running in development mode)
 
-// const { createProxyMiddleware } = require('http-proxy-middleware');
-
-const appConfig = require("../../../app-config.json");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    "/api/config/auth",
-    (req, res) => {
-      res.send(appConfig.authentication);
-    }
-    // createProxyMiddleware({
-    //   target: 'http://localhost:5000',
-    //   changeOrigin: true,
-    // })
+    "/api",
+    createProxyMiddleware({
+      target: "http://localhost:31003",
+      changeOrigin: true,
+    })
   );
 };

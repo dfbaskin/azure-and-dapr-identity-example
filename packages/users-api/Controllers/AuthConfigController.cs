@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ExampleApp.Users.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleApp.Users.Controllers
@@ -16,6 +17,7 @@ namespace ExampleApp.Users.Controllers
         public AppConfigService AppConfig { get; }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("auth")]
         public async Task<IActionResult> Get()
         {
