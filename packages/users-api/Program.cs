@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace ExampleApp.Users
 {
@@ -22,6 +17,7 @@ namespace ExampleApp.Users
                 .ConfigureHostConfiguration(configHost =>
                 {
                     configHost.AddJsonFile("app-config.json", optional: false);
+                    configHost.AddJsonFile("app-config.secrets.json", optional: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

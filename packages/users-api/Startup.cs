@@ -23,7 +23,9 @@ namespace ExampleApp.Users
         {
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration, "AzureAd");
+                .AddMicrosoftIdentityWebApi(Configuration, "AzureAd")
+                .EnableTokenAcquisitionToCallDownstreamApi()
+                .AddInMemoryTokenCaches();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

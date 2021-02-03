@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Content Include="../../app-config.json" Link="app-config.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../app-config.secrets.json" Link="app-config.secrets.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>  
 
 </Project>
