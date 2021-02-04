@@ -29,7 +29,7 @@ export function fetchMeFromBackend() {
         throw new Error("User is not signed in.");
       }
       const { bearerToken } = details;
-      return fetch("/api/current-user/me", {
+      return fetch("/v1.0/invoke/users-api/method/api/current-user/me", {
         method: "get",
         headers: new Headers({
           Authorization: `Bearer ${bearerToken}`,

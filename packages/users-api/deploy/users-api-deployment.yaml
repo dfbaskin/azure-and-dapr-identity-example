@@ -11,6 +11,10 @@ spec:
     metadata:
       labels:
         app: users-api
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "users-api"
+        dapr.io/app-port: "80"
     spec:
       containers:
         - name: users-api-container

@@ -7,7 +7,7 @@ export function pingBackend() {
         throw new Error("User is not signed in.");
       }
       const { bearerToken } = details;
-      return fetch("/api/ping", {
+      return fetch("/v1.0/invoke/users-api/method/api/ping", {
         method: "get",
         headers: new Headers({
           Authorization: `Bearer ${bearerToken}`,
