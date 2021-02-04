@@ -1,1 +1,1 @@
-dapr init -k --runtime-version 1.0.0-rc.2
+dapr init -k --runtime-version 1.0.0-rc.3
