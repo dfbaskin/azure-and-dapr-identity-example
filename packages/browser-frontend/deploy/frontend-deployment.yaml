@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend-webserver-container
-          image: frontend-webserver:v1.7
+          image: frontend-webserver:v1.8
           imagePullPolicy: Never
           ports:
             - containerPort: 80
