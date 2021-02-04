@@ -1,5 +1,11 @@
 controller:
   name: example-app-ingress
+  kind: deployment
+  pod:
+    annotations:
+      dapr.io/enabled: "true"
+      dapr.io/app-id: "nginx-ingress"
+      dapr.io/app-port: "80"
   healthStatus: true
   defaultTLS:
     cert: $CERT_VALUE
