@@ -1,10 +1,7 @@
 {
   "name": "azure-and-dapr-identity-example",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Example of using Azure services with DAPR controlled by user identity.",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "DAPR",
     "Azure",
@@ -13,13 +10,11 @@
   "author": "Dave Baskin <dfbaskin@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^4.3.8",
-    "prettier": "^2.2.1",
+    "husky": "^6.0.0",
+    "prettier": "^2.3.0",
     "pretty-quick": "^3.1.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+  "scripts": {
+    "prepare": "husky install"
   }
 }
