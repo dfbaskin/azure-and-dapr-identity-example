@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: users-api-container
-          image: users-api:v1.2
+          image: users-api:v1.4
           imagePullPolicy: Never
           ports:
             - containerPort: 80
